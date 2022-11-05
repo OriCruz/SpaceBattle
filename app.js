@@ -8,7 +8,8 @@ class AlienShip {
     }
 }
 //#endregion
-
+//Global variable for the indez of the alien ship array
+let index =0;
 //#region 
 const ussShip = {
     hull : 20,
@@ -16,18 +17,27 @@ const ussShip = {
     accuracy : .7,
     isAlive: true,
     attack(){
-         
-        if(Math.random()< ussShip.accuracy){
-        alienShipFact.shipCollection[0].hullPower -=  ussShip.firepower;
-        updateEnemyStats();
-        return 'You hit the emeny!';
+       
+            if(alienShipFact.shipCollection[index].hullPower>=1){
+                if(Math.random()< ussShip.accuracy)
+            {
+                alienShipFact.shipCollection[index].hullPower -=  ussShip.firepower;
+                updateEnemyStats();
+                return 'You hit the emeny!';
+                }
+                else{
+                return 'You missed! Prepare to get attack'
+                }
+            }
+            else if(alienShipFact.shipCollection[index].hullPower<=0) {
+                index++;
+                updateEnemyStats();
+                return `You destroyed one alien ship! there are ${alienShipFact.shipCollection.length-1} left`
+                } 
+       
     }
-    else{
-        return 'You missed! Prepare to get attack'
-    }
-    
 }
-}
+   
 //#endregion
 //#region 
 class AlienShipFactory{
@@ -51,23 +61,29 @@ class AlienShipFactory{
         return this.accuracy;
     }
     attack(){
-         
-            if(Math.random()< this.shipCollection[0].accuracy){
-            ussShip.hull -=  this.firepower;
-            updatePlayerStats();
-            return 'You got hit!';
+         if(ussShip.hull>1){
+            if(Math.random()< this.shipCollection[index].accuracy){
+                    ussShip.hull -= alienShipFact.shipCollection[index].firepower;
+                    updatePlayerStats();
+                    return 'You got hit!';
+                
         }
         else{
             return 'Enemy missed! Attack now'
         }
-        
+    }
+    else if(ussShip.hull<=0) {
+        return 'Game over, aliens have taken over earth! :('
+        }
     }
 }
 //#endregion
 
 let alienShipFact = new AlienShipFactory();
 alienShipFact.makeNewShips();
-
+alienShipFact.makeNewShips();
+console.log(alienShipFact.shipCollection)
+console.log(alienShipFact.shipCollection[index].firepower)
 
 
 function updatePlayerStats (){
@@ -75,7 +91,7 @@ function updatePlayerStats (){
 }
 
 function updateEnemyStats() {
-       document.querySelector('.enemyStats').innerHTML=`Hull :${alienShipFact.shipCollection[0].hullPower} <br> FirePower : ${alienShipFact.shipCollection[0].firepower}<br> Accuracy :${alienShipFact.shipCollection[0].accuracy}`;
+       document.querySelector('.enemyStats').innerHTML=`Hull :${alienShipFact.shipCollection[index].hullPower} <br> FirePower : ${alienShipFact.shipCollection[index].firepower}<br> Accuracy :${alienShipFact.shipCollection[index].accuracy}`;
 }
 //Shows initial stats
 updatePlayerStats();
