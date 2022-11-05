@@ -17,9 +17,8 @@ const ussShip = {
     accuracy : .7,
     isAlive: true,
     attack(){
-       
-            if(alienShipFact.shipCollection[index].hullPower>=1){
-                if(Math.random()< ussShip.accuracy)
+        if(alienShipFact.shipCollection[index].hullPower>=1){
+            if(Math.random()< ussShip.accuracy)
             {
                 alienShipFact.shipCollection[index].hullPower -=  ussShip.firepower;
                 updateEnemyStats();
@@ -30,12 +29,18 @@ const ussShip = {
                 }
             }
             else if(alienShipFact.shipCollection[index].hullPower<=0) {
-                index++;
-                updateEnemyStats();
-                return `You destroyed one alien ship! there are ${alienShipFact.shipCollection.length-1} left`
-                } 
-       
+                //checks if the current index of the array is less or equal to the last one
+                if(alienShipFact.shipCollection.indexOf(alienShipFact.shipCollection[index])<alienShipFact.shipCollection.length-1){
+                    index++;
+                    updateEnemyStats();
+                    return `You destroyed one alien ship! there are ${alienShipFact.shipCollection.length-1} left`
+                    }
+                    else{
+                        return 'You destroyed all alien ship congrats! Please reload the page to play again'
+                   }
+            } 
     }
+    
 }
    
 //#endregion
@@ -83,7 +88,8 @@ let alienShipFact = new AlienShipFactory();
 alienShipFact.makeNewShips();
 alienShipFact.makeNewShips();
 console.log(alienShipFact.shipCollection)
-console.log(alienShipFact.shipCollection[index].firepower)
+console.log(alienShipFact.shipCollection.indexOf(alienShipFact.shipCollection[index]));
+console.log(alienShipFact.shipCollection.length-1)
 
 
 function updatePlayerStats (){
