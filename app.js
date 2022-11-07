@@ -33,12 +33,17 @@ const ussShip = {
                 if(alienShipFact.shipCollection.indexOf(alienShipFact.shipCollection[index])<alienShipFact.shipCollection.length-1){
                     index++;
                     updateEnemyStats();
+                    //here I should add the retreat function
+
                     return `You destroyed one alien ship! there are ${alienShipFact.shipCollection.length-1} left`
                     }
                     else{
                         return 'You destroyed all alien ship congrats! Please reload the page to play again'
                    }
             } 
+    },
+    retreat(){
+        console.log('this works!');
     }
     
 }
@@ -87,9 +92,6 @@ class AlienShipFactory{
 let alienShipFact = new AlienShipFactory();
 alienShipFact.makeNewShips();
 alienShipFact.makeNewShips();
-console.log(alienShipFact.shipCollection)
-console.log(alienShipFact.shipCollection.indexOf(alienShipFact.shipCollection[index]));
-console.log(alienShipFact.shipCollection.length-1)
 
 
 function updatePlayerStats (){
@@ -108,6 +110,9 @@ let btnAttack = document.querySelector('.btnAttack')
 let modal = document.querySelector('.modal');
 let span = document.querySelector('.close');//closes the modal
 let msg = document.querySelector('#msg');
+//these two are buttons from the modal
+let retreatModal = document.querySelector('#retreatBtn');
+let attackModal = document.querySelector('#attackBtn');
 
 // When the user clicks on the button, open the modal
 btn.addEventListener('click', function(){
@@ -125,13 +130,18 @@ btnAttack.addEventListener('click', function(){
     if(btnAttack.innerHTML=='Attack'){
         modal.style.display ='block';
         btnAttack.innerHTML = 'Await Attack';
+        //attacks the aliens
         return msg.innerHTML= ussShip.attack();
     }
     else if(btnAttack.innerHTML !=="Attack"){
        modal.style.display ='block';
        btnAttack.innerHTML = 'Attack';
+       //attacks the ussShip
       return msg.innerHTML= alienShipFact.attack();
     }
-   
 })
 
+retreatModal.addEventListener('click', function(){
+ ussShip.retreat();
+ modal.style.display ='none';
+})

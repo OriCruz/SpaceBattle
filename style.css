@@ -105,6 +105,7 @@ button{
 .btnAttack{
     display: none;
 }
+
 .modal{
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -133,3 +134,14 @@ button{
     font-size: 28px;
     font-weight: bold;
   }
+.modalBtn{
+    display: none;
+}
+#attackBtn{
+    background-color: red;
+    color: aliceblue;
+}
+#retreatBtn{
+    background-color: gray;
+    color: white;
+}
