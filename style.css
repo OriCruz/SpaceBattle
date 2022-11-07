@@ -136,6 +136,7 @@ button{
   }
 .modalBtn{
     display: none;
+    font-size: 1em;
 }
 #attackBtn{
     background-color: red;

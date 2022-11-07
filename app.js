@@ -100,7 +100,11 @@ function attackAliens(){
 function retreat(){
     retreatModal.style.display='none';
     attackModal.style.display='none';
-    return`you have retreated, GAME OVER COWARD!`
+    //this function reloads the page if the user retreats
+    setTimeout(()=>{
+        window.location.reload();
+    },5000);
+    return `you have retreated, GAME OVER COWARD!(The page will reload in 5 seconds.)`;
 }
 function attackUssShip(){
 
@@ -140,7 +144,7 @@ btnAttack.addEventListener('click', function(){
         modal.style.display ='block';
         btnAttack.innerHTML = 'Await Attack';
         //attacks the aliens
-        attackAliens();
+        return msg.innerHTML=attackAliens();
            
     }
     else if(btnAttack.innerHTML !=="Attack"){
@@ -152,9 +156,9 @@ btnAttack.addEventListener('click', function(){
 })
 
 retreatModal.addEventListener('click', function(){
- 
- return msg.innerHTML = retreat();
-// })
-// attackModal.addEventListener('click', function(){
+    return msg.innerHTML = retreat();
+})
 
-// })
+attackModal.addEventListener('click', function(){
+    
+})
