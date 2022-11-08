@@ -4,7 +4,6 @@ class AlienShip {
         this.hullPower = hull;
         this.firepower= firepower;
         this.accuracy=accuracy;
-        this.isAlive = true;
     }
 }
 //#endregion
@@ -31,7 +30,7 @@ class AlienShipFactory{
         this.shipCollection.push(newShip);
     }
     calcHull(){
-        this.hullPower = Math.floor(Math.random()*(15-10+1))+10;
+        this.hullPower = Math.floor(Math.random()*(6-3+1))+3;
         return this.hullPower;
     }
     calcFirepower(){
@@ -47,8 +46,12 @@ class AlienShipFactory{
 
 //#region 
 let alienShipFact = new AlienShipFactory();
-alienShipFact.makeNewShips();
-alienShipFact.makeNewShips();
+// creates random number from 1 to 6. Then creates a random number of alien ship to attack (This is a bonus.)
+let randNum =  Math.floor(Math.random()*(6-1+1))+1;
+for (let i = 0; i < randNum; i++){
+    alienShipFact.makeNewShips();
+};
+
 let btn = document.querySelector('.btn');
 let btnAttack = document.querySelector('.btnAttack')
 let modal = document.querySelector('.modal');
@@ -60,6 +63,7 @@ let attackModal = document.querySelector('#attackBtn');
 
 //#endregion
 
+//#region 
 function updatePlayerStats (){
     document.querySelector('.playerStats').innerHTML=`Hull :${ussShip.hull}<br> FirePower : ${ussShip.firepower}<br> Accuracy : ${ussShip.accuracy}`;
 }
@@ -85,7 +89,7 @@ function attackAliens(){
     else if(alienShipFact.shipCollection[index].hullPower<=0) {
         //checks if the current index of the array is less or equal to the last one
         if(alienShipFact.shipCollection.indexOf(alienShipFact.shipCollection[index])<alienShipFact.shipCollection.length-1){
-            index++;
+            alienShipFact.shipCollection.shift();
             updateEnemyStats();
             //here I show the buttons to either retreat or keep attacking
             retreatModal.style.display= 'inline';
@@ -132,6 +136,7 @@ function attackUssShip(){
        return 'Game over, aliens have taken over earth! :('
        }
 }
+//#endregion
 
 //Shows initial stats
 updatePlayerStats();
