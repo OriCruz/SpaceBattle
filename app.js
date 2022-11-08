@@ -74,10 +74,12 @@ function attackAliens(){
     {
         alienShipFact.shipCollection[index].hullPower -=  ussShip.firepower;
         updateEnemyStats();
+        hideModalBtns();
         return  msg.innerHTML='You hit the emeny!';
         }
         else{
-        return  msg.innerHTML='You missed! Prepare to get attack'
+        hideModalBtns();
+        return  msg.innerHTML='You missed! Prepare to get attack';
         }
     }
     else if(alienShipFact.shipCollection[index].hullPower<=0) {
@@ -91,7 +93,7 @@ function attackAliens(){
             return  msg.innerHTML=`You destroyed one alien ship! there are ${alienShipFact.shipCollection.length-1} left`
             }
             else{
-                modalBtns.style.display='none';
+                hideModalBtns();
                 return  msg.innerHTML='You destroyed all alien ship congrats! Please reload the page to play again'
            }
         }
@@ -106,20 +108,27 @@ function retreat(){
     },5000);
     return `you have retreated, GAME OVER COWARD!(The page will reload in 5 seconds.)`;
 }
+function hideModalBtns(){
+    retreatModal.style.display= 'none';
+    attackModal.style.display='none';
+}
 function attackUssShip(){
 
         if(ussShip.hull>1){
            if(Math.random()< alienShipFact.shipCollection[index].accuracy){
                    ussShip.hull -= alienShipFact.shipCollection[index].firepower;
+                   hideModalBtns();
                    updatePlayerStats();
                    return 'You got hit!';
                
        }
        else{
+        hideModalBtns();
            return 'Enemy missed! Attack now'
        }
    }
    else if(ussShip.hull<=0) {
+    hideModalBtns();
        return 'Game over, aliens have taken over earth! :('
        }
 }
@@ -160,5 +169,5 @@ retreatModal.addEventListener('click', function(){
 })
 
 attackModal.addEventListener('click', function(){
-    
+    return modal.style.display = 'none';
 })
