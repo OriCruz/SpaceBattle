@@ -98,7 +98,7 @@ function attackAliens(){
             }
             else{
                 hideModalBtns();
-                return  msg.innerHTML='You destroyed all alien ship congrats! Please reload the page to play again'
+                return  msg.innerHTML='You destroyed all alien ship congrats! Please reload the page if you want to play again'
            }
         }
 }
